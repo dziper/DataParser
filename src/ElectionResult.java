@@ -101,4 +101,18 @@ public class ElectionResult {
                 ", county_name = '" + county_name + '\'' +
                 '}' + "\n";
     }
+
+    public void add(String[] arr){
+        setVotes_dem((int)Double.parseDouble(arr[0]));
+        setVotes_gop((int)Double.parseDouble(arr[1]));
+        setTotal_votes((int)Double.parseDouble(arr[2]));
+        setPer_dem(Double.parseDouble(arr[3]));
+        setPer_gop(Double.parseDouble(arr[4]));
+        setDiff((int)Double.parseDouble(arr[5]));
+        setPer_point_diff(Double.parseDouble(arr[6]));
+        setState_abbr(arr[7]);
+        setCounty_name(arr[8]);
+        setCombined_fips(Integer.parseInt(arr[9]));
+    }
+
 }

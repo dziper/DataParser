@@ -35,43 +35,11 @@ public class Utils {
     private static void parseLine(ElectionResult res, String line) {
         String cleanData = cleanLine(line);
         String[] datas = cleanData.split(",");
-        for (int i = 1; i < datas.length; i++) {
-            String point = datas[i];
-            switch (i){
-                case 1:
-                    res.setVotes_dem((int)Double.parseDouble(point));
-                    break;
-                case 2:
-                    res.setVotes_gop((int)Double.parseDouble(point));
-                    break;
-                case 3:
-                    res.setTotal_votes((int)Double.parseDouble(point));
-                    break;
-                case 4:
-                    res.setPer_dem(Double.parseDouble(point));
-                    break;
-                case 5:
-                    res.setPer_gop(Double.parseDouble(point));
-                    break;
-                case 6:
-                    res.setDiff((int)Double.parseDouble(point));
-                    break;
-                case 7:
-                    res.setPer_point_diff(Double.parseDouble(point));
-                    break;
-                case 8:
-                    res.setState_abbr(point);
-                    break;
-                case 9:
-                    res.setCounty_name(point);
-                    break;
-                case 10:
-                    res.setCombined_fips(Integer.parseInt(point));
-                    break;
-                    default:
 
-            }
+        for (int i = 0; i < datas.length - 1 ; i++) {
+            datas[i] = datas[i+1];
         }
+        res.add(datas);
     }
 
     private static String cleanLine(String line) {
