@@ -10,6 +10,16 @@ public class Unemployment {
         this.totalLaborForce = totalLaborForce;
     }
 
+    @Override
+    public String toString() {
+        return "Unemployment{" +
+                "totalLaborForce=" + totalLaborForce +
+                ", employedLaborForce=" + employedLaborForce +
+                ", unemployedLaborForce=" + unemployedLaborForce +
+                ", unemployedPercent=" + unemployedPercent +
+                '}';
+    }
+
     public int getEmployedLaborForce() {
         return employedLaborForce;
     }

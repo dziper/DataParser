@@ -20,6 +20,38 @@ public class Utils {
         return output.toString();
     }
 
+    public static DataManager parseAllResults(){
+        DataManager manager = new DataManager();
+
+        String data = readFileAsString("data/2016_Presidential_Results.csv");
+        ArrayList<ElectionResult> results= Utils.parse2016ElectionResults(data);
+        createManager(manager, results);
+
+
+    }
+
+    private static void createManager(DataManager manager, ArrayList<ElectionResult> results) {
+        for (int i = 0; i < results.size(); i++) {
+             String cName = results.get(i).getCounty_name();
+             String sName = results.get(i).getState_abbr();
+             State s = new State(sName);
+
+             if(!manager.contains(sName)){
+                 manager.add(s);
+             }
+             State state = manager.getState(sName);
+
+             County c = new County(cName);
+
+             if(!manager.getState(sName).contains(cName)){
+                 state.add(c);
+             }
+             County county = state.getCounty(cName);
+
+             county.setElec2016(results.get(i));
+        }
+    }
+
     public static ArrayList<ElectionResult> parse2016ElectionResults(String results){
         ArrayList<ElectionResult> out = new ArrayList<>();
         String[] lines = results.split(System.getProperty("line.separator"));
@@ -43,6 +75,7 @@ public class Utils {
     }
 
     private static void parseLineEducation(Education edu, String line){
+        String cleanData = cleanLine(line);
 
     }
 
