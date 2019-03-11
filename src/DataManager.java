@@ -25,5 +25,16 @@ public class DataManager {
         return null;
     }
 
+    public County getCounty(String name){
+        for (int i = 0; i < states.size(); i++) {
+            State s = states.get(i);
+            if (s.getName().contains(name)) {
+                return s.getCounty(name);
+            }
+
+        }
+        return null;
+    }
+
 
 }

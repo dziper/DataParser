@@ -23,11 +23,26 @@ public class Utils {
     public static DataManager parseAllResults(){
         DataManager manager = new DataManager();
 
-        String data = readFileAsString("data/2016_Presidential_Results.csv");
-        ArrayList<ElectionResult> results= Utils.parse2016ElectionResults(data);
+        String elecData = readFileAsString("data/2016_Presidential_Results.csv");
+        ArrayList<ElectionResult> results= Utils.parse2016ElectionResults(elecData);
         createManager(manager, results);
 
+        String eduData = readFileAsString("data/2016_Presidential_Results.csv");
+        ArrayList<Education> edu = Utils.parse2016EducationResults(eduData);
 
+        String empData = readFileAsString("data/2016_Presidential_Results.csv");
+        ArrayList<Unemployment> emp = Utils.parse2016EmploymentResults(empData);
+
+        return manager;
+
+    }
+
+    private static ArrayList<Unemployment> parse2016EmploymentResults(String empData) {
+        return null;
+    }
+
+    private static ArrayList<Education> parse2016EducationResults(String eduData) {
+        return null;
     }
 
     private static void createManager(DataManager manager, ArrayList<ElectionResult> results) {
