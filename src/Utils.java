@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utils {
-    DataManager manager = new DataManager();
+    static DataManager manager = new DataManager();
 
     public static String readFileAsString(String filepath) {
         StringBuilder output = new StringBuilder();
@@ -22,7 +22,7 @@ public class Utils {
         return output.toString();
     }
 
-    public DataManager parseAllResults(){
+    public static DataManager parseAllResults(){
 
 
         String elecData = readFileAsString("data/2016_Presidential_Results.csv");
@@ -40,10 +40,18 @@ public class Utils {
     }
 
     private static ArrayList<Unemployment> parse2016EmploymentResults(String empData) {
-        return null;
+        ArrayList<Unemployment> out = new ArrayList<>();
+        String[] lines = empData.split(System.getProperty("line.separator"));
+
+        for (int i = 6; i < lines.length; i++) {
+            Unemployment edu = new Unemployment();
+            parseLineUnemployment(edu, lines[i]);
+            out.add(edu);
+        }
+        return out;
     }
 
-    private ArrayList<Education> parse2016EducationResults(String eduData) {
+    private static ArrayList<Education> parse2016EducationResults(String eduData) {
         ArrayList<Education> out = new ArrayList<>();
         String[] lines = eduData.split(System.getProperty("line.separator"));
 
@@ -99,12 +107,29 @@ public class Utils {
         res.add(datas);
     }
 
-    private void parseLineEducation(Education edu, String line){
+    private static void parseLineEducation(Education edu, String line){
         String cleanData = cleanLine(line);
         String[] datum = cleanData.split(",");
         if(manager.getCounty(datum[2]) != null){
             edu.add(datum);
         }
+
+        manager.getCounty(datum[2]).setEduc2016(edu);
+    }
+
+    private static void parseLineUnemployment(Unemployment empl, String line){
+        String cleanData = cleanLine(line);
+        String[] datum = cleanData.split(",");
+
+        String cName = datum[2];
+        if (cName.length() > 1) {
+            datum[2] = cName.substring(0, cName.indexOf(","));
+        }
+        if(manager.getCounty(datum[2]) != null){
+            empl.add(datum);
+        }
+
+        manager.getCounty(cName).setEmploy2016(empl);
     }
 
     private static String cleanLine(String line) {
