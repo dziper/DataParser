@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Utils {
+    DataManager manager = new DataManager();
+
     public static String readFileAsString(String filepath) {
         StringBuilder output = new StringBuilder();
 
@@ -20,17 +22,17 @@ public class Utils {
         return output.toString();
     }
 
-    public static DataManager parseAllResults(){
-        DataManager manager = new DataManager();
+    public DataManager parseAllResults(){
+
 
         String elecData = readFileAsString("data/2016_Presidential_Results.csv");
         ArrayList<ElectionResult> results= Utils.parse2016ElectionResults(elecData);
         createManager(manager, results);
 
-        String eduData = readFileAsString("data/2016_Presidential_Results.csv");
+        String eduData = readFileAsString("data/Education.csv");
         ArrayList<Education> edu = Utils.parse2016EducationResults(eduData);
 
-        String empData = readFileAsString("data/2016_Presidential_Results.csv");
+        String empData = readFileAsString("data/Unemployment.csv");
         ArrayList<Unemployment> emp = Utils.parse2016EmploymentResults(empData);
 
         return manager;
@@ -41,8 +43,16 @@ public class Utils {
         return null;
     }
 
-    private static ArrayList<Education> parse2016EducationResults(String eduData) {
-        return null;
+    private ArrayList<Education> parse2016EducationResults(String eduData) {
+        ArrayList<Education> out = new ArrayList<>();
+        String[] lines = eduData.split(System.getProperty("line.separator"));
+
+        for (int i = 6; i < lines.length; i++) {
+            Education edu = new Education();
+            parseLineEducation(edu, lines[i]);
+            out.add(edu);
+        }
+        return out;
     }
 
     private static void createManager(DataManager manager, ArrayList<ElectionResult> results) {
@@ -89,9 +99,12 @@ public class Utils {
         res.add(datas);
     }
 
-    private static void parseLineEducation(Education edu, String line){
+    private void parseLineEducation(Education edu, String line){
         String cleanData = cleanLine(line);
-
+        String[] datum = cleanData.split(",");
+        if(manager.getCounty(datum[2]) != null){
+            edu.add(datum);
+        }
     }
 
     private static String cleanLine(String line) {
@@ -123,4 +136,5 @@ public class Utils {
 
         return line;
     }
+
 }
