@@ -92,13 +92,6 @@ public class ElectionResult {
                 " votes_dem = " + votes_dem +
                 ", votes_gop = " + votes_gop +
                 ", total_votes = " + total_votes +
-                ", diff = " + diff +
-                ", combined_fips = " + combined_fips +
-                ", per_dem = " + per_dem +
-                ", per_gop = " + per_gop +
-                ", per_point_diff = " + per_point_diff +
-                ", state_abbr = '" + state_abbr + '\'' +
-                ", county_name = '" + county_name + '\'' +
                 '}' + "\n";
     }
 
