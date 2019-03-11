@@ -26,13 +26,13 @@ public class Utils {
 
         for (int i = 1; i < lines.length; i++) {
             ElectionResult res = new ElectionResult();
-            parseLine(res, lines[i]);
+            parseLineElection(res, lines[i]);
             out.add(res);
         }
         return out;
     }
 
-    private static void parseLine(ElectionResult res, String line) {
+    private static void parseLineElection(ElectionResult res, String line) {
         String cleanData = cleanLine(line);
         String[] datas = cleanData.split(",");
 
@@ -40,6 +40,10 @@ public class Utils {
             datas[i] = datas[i+1];
         }
         res.add(datas);
+    }
+
+    private static void parseLineEducation(Education edu, String line){
+
     }
 
     private static String cleanLine(String line) {
