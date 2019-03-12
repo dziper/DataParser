@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class State {
@@ -5,12 +6,14 @@ public class State {
     private List<County> counties;
 
     public State(String name){
+        counties = new ArrayList<>();
         this.name = name;
     }
 
     public boolean contains(String name){
         for (int i = 0; i < counties.size(); i++) {
             County c = counties.get(i);
+            System.out.println(c.getName());
             if (c.getName().equals(name)) return true;
 
         }
@@ -28,7 +31,7 @@ public class State {
     public County getCounty(String cName) {
         for (int i = 0; i < counties.size(); i++) {
             County c = counties.get(i);
-            if (c.getName().equals(name)) return c;
+            if (c.getName().equals(cName)) return c;
 
         }
         return null;

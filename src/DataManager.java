@@ -1,7 +1,12 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataManager {
     private List<State> states;
+
+    public DataManager(){
+        states = new ArrayList<>();
+    }
 
     public boolean contains(String name){
         for (int i = 0; i < states.size(); i++) {
