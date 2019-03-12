@@ -45,9 +45,9 @@ public class Unemployment {
     }
 
     public void add(String[] data){
-        setEmployedLaborForce(Integer.parseInt(data[44]));
-        setUnemployedLaborForce(Integer.parseInt(data[45]));
-        setUnemployedPercent(Double.parseDouble(data[46]));
+        setEmployedLaborForce(Integer.parseInt(data[43]));
+        setUnemployedLaborForce(Integer.parseInt(data[44]));
+        setUnemployedPercent(Double.parseDouble(data[45]));
         setTotalLaborForce(getEmployedLaborForce()+getUnemployedLaborForce());
     }
 }

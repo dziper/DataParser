@@ -13,7 +13,6 @@ public class State {
     public boolean contains(String name){
         for (int i = 0; i < counties.size(); i++) {
             County c = counties.get(i);
-            System.out.println(c.getName());
             if (c.getName().equals(name)) return true;
 
         }

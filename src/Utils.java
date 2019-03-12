@@ -108,27 +108,33 @@ public class Utils {
     private static void parseLineEducation(Education edu, String line){
         String cleanData = cleanLine(line);
         String[] datum = cleanData.split(",");
-//        System.out.println(datum[2]);
-        if(manager.getCounty(datum[2]) != null){
-            edu.add(datum);
-            manager.getCounty(datum[2]).setEduc2016(edu);
-        }
+
+            if (manager.getCounty(datum[2]) != null && datum[38].length() > 0) {
+                edu.add(datum);
+                manager.getCounty(datum[2]).setEduc2016(edu);
+            }
 
     }
 
     private static void parseLineUnemployment(Unemployment empl, String line){
         String cleanData = cleanLine(line);
         String[] datum = cleanData.split(",");
-        System.out.println(cleanData);
+
+
+        for (int i = 0; i < datum.length; i++) {
+            datum[i] = datum[i].trim();
+        }
         String cName = datum[2];
+
+
+
         if (cName.length() > 1) {
             datum[2] = cName.substring(0, cName.length() - 3);
-            System.out.println(datum[2]);
         }
         if(manager.getCounty(datum[2]) != null){
             empl.add(datum);
         }
-
+        System.out.println(datum[2]);
         manager.getCounty(datum[2]).setEmploy2016(empl);
     }
 
