@@ -10,10 +10,10 @@ public class State {
         this.name = name;
     }
 
-    public boolean contains(String name){
+    public boolean contains(String name, int fips){
         for (int i = 0; i < counties.size(); i++) {
             County c = counties.get(i);
-            if (c.getName().equals(name)) return true;
+            if (c.getName().equals(name) || c.getFips() == fips) return true;
 
         }
         return false;
@@ -27,10 +27,10 @@ public class State {
         counties.add(c);
     }
 
-    public County getCounty(String cName) {
+    public County getCounty(String cName, int fips) {
         for (int i = 0; i < counties.size(); i++) {
             County c = counties.get(i);
-            if (c.getName().equals(cName)) return c;
+            if (c.getName().equals(cName) || fips == c.getFips()) return c;
 
         }
         return null;

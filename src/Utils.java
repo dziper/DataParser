@@ -65,6 +65,8 @@ public class Utils {
     private static void createManager(DataManager manager, ArrayList<ElectionResult> results) {
         for (int i = 0; i < results.size(); i++) {
              String cName = results.get(i).getCounty_name();
+             int cFips = results.get(i).getCombined_fips();
+
              String sName = results.get(i).getState_abbr();
              State s = new State(sName);
 
@@ -73,12 +75,12 @@ public class Utils {
              }
              State state = manager.getState(sName);
 
-             County c = new County(cName);
+             County c = new County(cName, cFips);
 
-             if(!manager.getState(sName).contains(cName)){
+             if(!manager.getState(sName).contains(cName,cFips)){
                  state.add(c);
              }
-             County county = state.getCounty(cName);
+             County county = state.getCounty(cName, cFips);
              county.setElec2016(results.get(i));
         }
     }
@@ -108,10 +110,11 @@ public class Utils {
     private static void parseLineEducation(Education edu, String line){
         String cleanData = cleanLine(line);
         String[] datum = cleanData.split(",");
+        int fips = Integer.parseInt(datum[0]);
 
-            if (manager.getCounty(datum[2]) != null && datum[38].length() > 0) {
+            if (manager.getCounty(datum[2], fips) != null && datum[38].length() > 0) {
                 edu.add(datum);
-                manager.getCounty(datum[2]).setEduc2016(edu);
+                manager.getCounty(datum[2], fips).setEduc2016(edu);
             }
 
     }
@@ -131,11 +134,14 @@ public class Utils {
         if (cName.length() > 1) {
             datum[2] = cName.substring(0, cName.length() - 3);
         }
-        if(manager.getCounty(datum[2]) != null){
+        if(manager.getCounty(datum[2],Integer.parseInt(datum[0])) != null){
             empl.add(datum);
         }
         System.out.println(datum[2]);
-        manager.getCounty(datum[2]).setEmploy2016(empl);
+
+        //@TODO: set counties by fips or name? I guess? Because currently
+
+        manager.getCounty(datum[2], Integer.parseInt(datum[0])).setEmploy2016(empl);
     }
 
     private static String cleanLine(String line) {

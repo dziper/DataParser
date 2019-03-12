@@ -9,7 +9,7 @@ public class County {
         return name;
     }
 
-    public County(String name){
+    public County(String name, int combined_fips){
         this.name = name;
     }
 

@@ -30,11 +30,11 @@ public class DataManager {
         return null;
     }
 
-    public County getCounty(String name){
+    public County getCounty(String name, int fips){
         for (int i = 0; i < states.size(); i++) {
             State s = states.get(i);
-            if (s.contains(name)) {
-                return s.getCounty(name);
+            if (s.contains(name, fips)) {
+                return s.getCounty(name,fips);
             }
 
         }
