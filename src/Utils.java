@@ -139,7 +139,7 @@ public class Utils {
         }
         System.out.println(datum[2]);
 
-        //@TODO: set counties by fips or name? I guess? Because currently
+        //@TODO: Do stuff with only FIPS
 
         manager.getCounty(datum[2], Integer.parseInt(datum[0])).setEmploy2016(empl);
     }
